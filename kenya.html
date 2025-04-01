@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Upload and View Files Instantly">
+    <title>File Upload & Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(90deg, #003366, #FFD700);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .upload-section, .file-list {
+            background: rgba(0, 51, 102, 0.9);
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            width: 80%;
+            box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.5);
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .file-label {
+            display: inline-block;
+            background: #FFD700;
+            color: #003366;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .file-label:hover {
+            background: #FFC107;
+        }
+        button {
+            background: #FFD700;
+            color: #003366;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #FFC107;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        ul li a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        header {
+            background: #003366;
+            padding: 50px 40px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.6);
+        }
+        h2, h1 {
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Upload & View Files Instantly</h1>
+    <p>Only upload <b>PDF</b> files and click on them to view the content.</p>
+</header>
+
+<section class="upload-section">
+    <h2>Upload a New File</h2>
+    <form id="uploadForm">
+        <label for="fileInput" class="file-label">Choose File</label>
+        <input type="file" id="fileInput" accept="application/pdf" required>
+        <button type="button" onclick="uploadFile()">Upload</button>
+    </form>
+</section>
+
+<section class="file-list">
+    <h2>Uploaded Files</h2>
+    <ul id="fileList"></ul>
+</section>
+
+<script>
+    function uploadFile() {
+        const fileInput = document.getElementById('fileInput');
+        if (fileInput.files.length === 0) {
+            alert('Please select a file to upload.');
+            return;
+        }
+
+        const file = fileInput.files[0];
+        const fileURL = URL.createObjectURL(file);
+        setTimeout(() => URL.revokeObjectURL(fileURL), 60000); // Revoke URL after 1 minute to free memory
+
+        let files = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+        files.push({ name: file.name, url: fileURL });
+        try {
+            localStorage.setItem('uploadedFiles', JSON.stringify(files));
+        } catch (e) {
+            console.error('Storage limit exceeded or unavailable', e);
+        }
+
+        displayFiles();
+    }
+
+    function displayFiles() {
+        const fileList = document.getElementById('fileList');
+        fileList.innerHTML = '';
+
+        const files = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+        files.forEach((file, index) => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<a href="#" onclick="openFile('${file.url}', '${file.name}')">${file.name}</a>
+                                  <button onclick="deleteFile(${index})">Delete</button>`;
+            fileList.appendChild(listItem);
+        });
+    }
+
+    function openFile(url, name) {
+        const win = window.open();
+        win.document.body.innerHTML = `<embed src="${url}" width="100%" height="100%" type="application/pdf">`;
+        win.document.body.innerHTML = `<embed src="${url}" width="100%" height="100%" type="application/pdf">`;
+        win.document.body.innerHTML = `<embed src="${url}" width="100%" height="100%" type="application/pdf">`;
+        win.document.close();
+    }
+
+    function deleteFile(index) {
+        let files = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+        files.splice(index, 1);
+        localStorage.setItem('uploadedFiles', JSON.stringify(files));
+        displayFiles();
+    }
+
+    displayFiles();
+</script>
+</body>
+</html>
