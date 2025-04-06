@@ -1,166 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Upload and View Files Instantly">
-    <title>File Upload & Viewer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        body {
-            background: linear-gradient(90deg, #003366, #FFD700);
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-        .upload-section, .file-list {
-            background: rgba(0, 51, 102, 0.9);
-            padding: 20px;
-            margin: 20px auto;
-            border-radius: 10px;
-            width: 80%;
-            box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.5);
-        }
-        input[type="file"] {
-            display: none;
-        }
-        .file-label {
-            display: inline-block;
-            background: #FFD700;
-            color: #003366;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .file-label:hover {
-            background: #FFC107;
-        }
-        button {
-            background: #FFD700;
-            color: #003366;
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
-        }
-        button:hover {
-            background: #FFC107;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        ul li {
-            background: rgba(255, 255, 255, 0.1);
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        ul li a {
-            color: #FFD700;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        header {
-            background: #003366;
-            padding: 50px 40px;
-            border-radius: 30px;
-            text-align: center;
-            box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.6);
-        }
-        h2, h1 {
-            color: #FFD700;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload & View Files</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(90deg, #003366, #FFD700);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 100px;
+    }
+
+    header {
+      text-align: center;
+      background-color: #002244;
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: 1.5rem auto;
+      width: 90%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      color: #FFD700;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: #eee;
+      font-size: 1rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1rem 0;
+    }
+
+    nav a {
+      background: #FFD700;
+      color: #003366;
+      padding: 0.6rem 1.2rem;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    nav a:hover {
+      background: #FFC107;
+    }
+
+    .upload-section,
+    .file-list {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: 1.5rem auto;
+      width: 90%;
+      max-width: 700px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    .upload-section h2,
+    .file-list h2 {
+      color: #FFD700;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+
+    .file-label {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background-color: #FFD700;
+      color: #003366;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-right: 1rem;
+    }
+
+    .file-label:hover {
+      background-color: #FFC107;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    button {
+      padding: 0.8rem 1.5rem;
+      background: #FFD700;
+      color: #003366;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #FFC107;
+    }
+
+    #fileList {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 1rem;
+    }
+
+    #fileList li {
+      background-color: #111;
+      margin-bottom: 0.8rem;
+      padding: 0.8rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #FFC107;
+    }
+
+    #fileList li a {
+      color: #FFD700;
+      text-decoration: underline;
+      margin-right: 1rem;
+    }
+
+    footer {
+      background-color: #002244;
+      color: #FFD700;
+      padding: 1rem;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.4);
+    }
+  </style>
 </head>
 <body>
-<header>
+  <header>
     <h1>Upload & View Files Instantly</h1>
-    <p>Only upload <b>PDF</b> files and click on them to view the content.</p>
-</header>
+    <p>Only upload <strong>PDF</strong> files. Click on a filename to view it.</p>
+  </header>
 
-<section class="upload-section">
+  <nav>
+    <a href="home50.html">Home</a>
+    <a href="sign i 5.html">Logout</a>
+  </nav>
+
+  <section class="upload-section">
     <h2>Upload a New File</h2>
     <form id="uploadForm">
-        <label for="fileInput" class="file-label">Choose File</label>
-        <input type="file" id="fileInput" accept="application/pdf" required>
-        <button type="button" onclick="uploadFile()">Upload</button>
+      <label for="fileInput" class="file-label">Choose File</label>
+      <input type="file" id="fileInput" accept="application/pdf" required />
+      <button type="button" onclick="uploadFile()">Upload</button>
     </form>
-</section>
+  </section>
 
-<section class="file-list">
+  <section class="file-list">
     <h2>Uploaded Files</h2>
     <ul id="fileList"></ul>
-</section>
+  </section>
 
-<script>
+  <footer>
+    &copy; 2025 Kenya Pelix | Built with 💛 and ☀️
+  </footer>
+
+  <script>
     function uploadFile() {
-        const fileInput = document.getElementById('fileInput');
-        if (fileInput.files.length === 0) {
-            alert('Please select a file to upload.');
-            return;
-        }
+      const fileInput = document.getElementById('fileInput');
+      if (fileInput.files.length === 0) {
+        alert('Please select a file to upload.');
+        return;
+      }
 
-        const file = fileInput.files[0];
-        const fileURL = URL.createObjectURL(file);
-        setTimeout(() => URL.revokeObjectURL(fileURL), 60000); // Revoke URL after 1 minute to free memory
+      const file = fileInput.files[0];
+      const fileURL = URL.createObjectURL(file);
 
-        let files = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
-        files.push({ name: file.name, url: fileURL });
-        try {
-            localStorage.setItem('uploadedFiles', JSON.stringify(files));
-        } catch (e) {
-            console.error('Storage limit exceeded or unavailable', e);
-        }
+      const files = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+      files.push({ name: file.name, url: fileURL });
 
-        displayFiles();
+      try {
+        localStorage.setItem('uploadedFiles', JSON.stringify(files));
+      } catch (e) {
+        console.error('Storage issue:', e);
+      }
+
+      displayFiles();
+      fileInput.value = ""; // Clear input
     }
 
     function displayFiles() {
-        const fileList = document.getElementById('fileList');
-        fileList.innerHTML = '';
+      const fileList = document.getElementById('fileList');
+      fileList.innerHTML = '';
 
-        const files = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
-        files.forEach((file, index) => {
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `<a href="#" onclick="openFile('${file.url}', '${file.name}')">${file.name}</a>
-                                  <button onclick="deleteFile(${index})">Delete</button>`;
-            fileList.appendChild(listItem);
-        });
+      const files = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+      files.forEach((file, index) => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <a href="#" onclick="openFile('${file.url}')">${file.name}</a>
+          <button onclick="deleteFile(${index})">Delete</button>
+        `;
+        fileList.appendChild(listItem);
+      });
     }
 
-    function openFile(url, name) {
-        const win = window.open();
-        win.document.body.innerHTML = `<embed src="${url}" width="100%" height="100%" type="application/pdf">`;
-        win.document.body.innerHTML = `<embed src="${url}" width="100%" height="100%" type="application/pdf">`;
-        win.document.body.innerHTML = `<embed src="${url}" width="100%" height="100%" type="application/pdf">`;
-        win.document.close();
+    function openFile(url) {
+      const win = window.open('', '_blank');
+      win.document.write(`
+        <html><head><title>PDF Viewer</title></head>
+        <body style="margin:0">
+        <embed src="${url}" width="100%" height="100%" type="application/pdf">
+        </body></html>
+      `);
+      win.document.close();
     }
 
     function deleteFile(index) {
-        let files = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
-        files.splice(index, 1);
-        localStorage.setItem('uploadedFiles', JSON.stringify(files));
-        displayFiles();
+      let files = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+      files.splice(index, 1);
+      localStorage.setItem('uploadedFiles', JSON.stringify(files));
+      displayFiles();
     }
 
-    displayFiles();
-</script>
+    window.onload = displayFiles;
+  </script>
 </body>
 </html>
