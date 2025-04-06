@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Welcome to the official page of Kamba Nation, exploring the history, culture, and heritage of the Kamba people.">
     <title>Kamba Nation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-mX+N2AyjXh+Um3PLk8HTM+1K5OtM5U7Zd6+N14BJ1E2+lTsoIoyy1ODW4xdh5AibIOmv+urx+QlB+7FcR6dN7A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         * {
             margin: 0;
@@ -12,136 +13,179 @@
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
+
         body {
-            background: linear-gradient(90deg, #003366, #FFD700);
+            background: linear-gradient(135deg, #003366, #FFD700);
             color: white;
             text-align: center;
-            padding: 20px;
+            padding-bottom: 80px;
         }
-        .upload-section, .file-list {
-            background: rgba(0, 51, 102, 0.9);
-            padding: 20px;
+
+        header {
+            background: #003366;
+            padding: 60px 40px;
+            border-radius: 20px;
+            margin: 30px;
+            box-shadow: 0 10px 30px rgba(0, 51, 102, 0.8);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #f7f7f7;
+            font-weight: 400;
+        }
+
+        nav {
+            background-color: #FFC107;
+            padding: 18px;
+            margin: 30px auto;
+            width: 85%;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 30px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #003366;
+        }
+
+        section {
+            background-color: rgba(0, 51, 102, 0.8);
+            border-radius: 25px;
+            padding: 50px 40px;
+            margin: 30px auto;
+            width: 85%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        section h2 {
+            color: #FFD700;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+
+        section ul {
+            list-style-type: disc;
+            text-align: left;
             margin: 20px auto;
-            border-radius: 10px;
-            width: 80%;
-            box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.5);
+            padding-left: 40px;
+            max-width: 650px;
         }
+
+        section ul li {
+            margin: 12px 0;
+            font-size: 1.1em;
+        }
+
+        .upload-section {
+            background: rgba(0, 51, 102, 0.9);
+            padding: 40px;
+            margin: 40px auto;
+            border-radius: 20px;
+            width: 80%;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        }
+
         input[type="file"] {
             display: none;
         }
+
         .file-label {
             display: inline-block;
             background: #FFD700;
             color: #003366;
-            padding: 12px 20px;
-            font-size: 16px;
+            padding: 14px 30px;
+            font-size: 18px;
             font-weight: bold;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             transition: 0.3s;
         }
+
         .file-label:hover {
             background: #FFC107;
         }
+
+        #file-name {
+            margin-top: 15px;
+            font-style: italic;
+            color: #FFD700;
+        }
+
         button {
             background: #FFD700;
             color: #003366;
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
-        }
-        button:hover {
-            background: #FFC107;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        ul li {
-            background: rgba(255, 255, 255, 0.1);
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        ul li a {
-            color: #FFD700;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        header {
-            background: #003366;
-            padding: 50px 40px;
-            border-radius: 30px;
-            text-align: center;
-            box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.6);
-            border-radius: 30px;
-        }
-        h2, h1 {
-            color: #FFD700;
-        }
-        nav {
-            background-color: #FFC107;
-            padding: 20px 13px;
-            box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.6);
-            border-radius: 10px;
-            border-radius: 40px;
-        }
-        nav a {
-            color:white;
-            text-decoration: none;
+            padding: 15px 30px;
             font-size: 18px;
             font-weight: bold;
-            margin: 0 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
             transition: 0.3s;
         }
-        nav a:hover {
-            color:#003366;
+
+        button:hover {
+            background: #FFC107;
+            transform: scale(1.05);
         }
+
         footer {
-            margin-top: 20px;
-            padding: 10px;
+            padding: 20px;
             background: #003366;
             color: #FFD700;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.5);
-            position: 0;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-<header>
-  <h1>Welcome to Kenya Pelix</h1>
-  <p>Log in to continue</p>
-</header>
+    <header>
+        <h1>Welcome to Kenya Pelix</h1>
+        <p>Your gateway to the vibrant history and culture of the Kamba people. Log in to explore more!</p>
+    </header>
 
-<nav>
-    <a href="home50.html">Home</a>
-    <a href="sign i 5.html"><i class="fa fa-home"></i> Log in</a>
-</nav>
+    <nav>
+        <a href="home50.html"><i class="fas fa-home"></i> Home</a>
+        <a href="sign_i_5.html"><i class="fas fa-sign-in-alt"></i> Log in</a>
+    </nav>
 
-<section>
-    <h2>About</h2>
-    <p>Website for uploading Files completely Free without any charge.</p>
-    <h2>Steps for uploading</h2>
-    <ul>Chose the file.</ul>
-    <ul>Open it.</ul>
-    <ul>Click upload.</ul>
-    <ul>Press the file to open it if you want to view the contents.</ul>
-</section>
+    <section>
+        <h2>About Kamba Nation</h2>
+        <p>Discover the history, traditions, and rich cultural heritage of the Kamba people. This platform is dedicated to preserving the Kamba culture and sharing it with the world.</p>
 
-<footer>
-    &copy; 2025 Kamba Nation - All Rights Reserved.
-</footer>
+        <h2>How to Upload Files</h2>
+        <ul>
+            <li>Select your file by clicking the "Choose File" button.</li>
+            <li>Review the file, and ensure it is the correct document.</li>
+            <li>Click the "Upload" button to upload your file to the platform.</li>
+            <li>Once uploaded, click on the file to view its contents.</li>
+        </ul>
+    </section>
+
+    <footer>
+        &copy; 2025 Kamba Nation - All Rights Reserved.
+    </footer>
 
 </body>
 </html>
